@@ -1,0 +1,22 @@
+[
+  {
+    "id": "60d8313595e95e016047612b",
+    "color": "blue",
+    "shape": "sphere"
+  },
+  {
+    "id": "60d831356ff9e8c3fe5d8d78",
+    "color": "fuchsia",
+    "shape": "square"
+  },
+  {
+    "id": "60d8313554354d46037bce22",
+    "color": "navy",
+    "shape": "triangle"
+  },
+  {
+    "id": "60d83135647d3ee580399f9a",
+    "color": "teal",
+    "shape": "circle"
+  }
+]

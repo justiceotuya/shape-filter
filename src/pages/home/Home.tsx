@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import data from '../../data/data.json'
+import React, { FC,useEffect, useState, useCallback } from 'react'
 import styled from "styled-components";
 import { ReactComponent as Circle } from '../../assets/circle.svg'
 import { ReactComponent as Cone } from '../../assets/cone.svg'
@@ -23,22 +22,22 @@ interface IColorProps {
 }
 
 interface IShapeButton {
-  shape: string;
+  $shape: string;
   selectedShapes: string[];
 }
 interface IColorButton {
-  color: string;
+  $color: string;
   selectedColors: string[];
 }
 
-export const StyledColorChooser = styled.div<IColorButton>`
+export const StyledColorChooser = styled.button<IColorButton>`
 height: 50px;
 width: 50px;
-background-color: ${props => props.color && `${props.color}`};
+background-color: ${props => props.$color && `${props.$color}`};
 border-radius: 100%;
 cursor: pointer;
-  border: ${props => props.selectedColors.includes(props.color) && "5px solid #337CFC"};
-  box-shadow:${props => props.selectedColors.includes(props.color) && "2px 5px 16px #337CFC"};
+  border: ${props => props.selectedColors.includes(props.$color) ? "5px solid #337CFC": "none"};
+  box-shadow:${props => props.selectedColors.includes(props.$color) && "2px 5px 16px #337CFC"};
   transition: .2s box-shadow ease-in,.2s border ease-in-out;
 
 `
@@ -48,8 +47,8 @@ export const StyledButton = styled.button<IShapeButton>`
   padding: 10px 30px;
   border-radius: 30px;
   border:1px solid silver;
-  background: ${props => props.selectedShapes.includes(props.shape) ? "#DFE7FB" : "#fff"};
-  border-color: ${props => props.selectedShapes.includes(props.shape) ? "#DFE7FB" : "silver"};
+  background: ${props => props.selectedShapes.includes(props.$shape) ? "#DFE7FB" : "#fff"};
+  border-color: ${props => props.selectedShapes.includes(props.$shape) ? "#DFE7FB" : "silver"};
 `;
 export const StyledHome = styled.main`
 padding: 50px;
@@ -88,93 +87,102 @@ padding: 50px;
 
 
 
-export const CircleIcon = styled(Circle) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const CircleIcon = styled(Circle) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const ConeIcon = styled(Cone) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const ConeIcon = styled(Cone) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const CubeIcon = styled(Cube) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const CubeIcon = styled(Cube) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const CylinderIcon = styled(Cylinder) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const CylinderIcon = styled(Cylinder) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const DodecahedronIcon = styled(Dodecahedron) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const DodecahedronIcon = styled(Dodecahedron) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const HexagonIcon = styled(Hexagon) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const HexagonIcon = styled(Hexagon) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const IcosahedronIcon = styled(Icosahedron) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const IcosahedronIcon = styled(Icosahedron) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const OctahedronIcon = styled(Octahedron) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const OctahedronIcon = styled(Octahedron) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const PentagonIcon = styled(Pentagon) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const PentagonIcon = styled(Pentagon) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const PyramidIcon = styled(Pyramid) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const PyramidIcon = styled(Pyramid) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const RectangleIcon = styled(Rectangle) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const RectangleIcon = styled(Rectangle) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const SphereIcon = styled(Sphere) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const SphereIcon = styled(Sphere) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const SquareIcon = styled(Square) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const SquareIcon = styled(Square) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const TetrahedronIcon = styled(Tetrahedron) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const TetrahedronIcon = styled(Tetrahedron) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
-export const TriangleIcon = styled(Triangle) <{ color: string }>`
-color: ${props => props.color && `${props.color}`};
+export const TriangleIcon = styled(Triangle) <{ $color: string }>`
+color: ${props => props.$color && `${props.$color}`};
 `;
 
 
 const handleRenderShape = (color: string, shape: string) => {
   switch (shape) {
     case "circle":
-      return <CircleIcon color={color} />
+      return <CircleIcon data-testid={`svg-${shape}`} $color={color} />
     case "cone":
-      return <ConeIcon color={color} />
+      return <ConeIcon data-testid={`svg-${shape}`} $color={color} />
     case "cube":
-      return <CubeIcon color={color} />
+      return <CubeIcon data-testid={`svg-${shape}`} $color={color} />
     case "cylinder":
-      return <CylinderIcon color={color} />
+      return <CylinderIcon data-testid={`svg-${shape}`} $color={color} />
     case "dodecahedron":
-      return <DodecahedronIcon color={color} />
+      return <DodecahedronIcon data-testid={`svg-${shape}`} $color={color} />
     case "hexagon":
-      return <HexagonIcon color={color} />
+      return <HexagonIcon data-testid={`svg-${shape}`} $color={color} />
     case "icosahedron":
-      return <IcosahedronIcon color={color} />
+      return <IcosahedronIcon data-testid={`svg-${shape}`} $color={color} />
     case "octahedron":
-      return <OctahedronIcon color={color} />
+      return <OctahedronIcon data-testid={`svg-${shape}`} $color={color} />
     case "pentagon":
-      return <PentagonIcon color={color} />
+      return <PentagonIcon data-testid={`svg-${shape}`} $color={color} />
     case "pyramid":
-      return <PyramidIcon color={color} />
+      return <PyramidIcon data-testid={`svg-${shape}`} $color={color} />
     case "rectangle":
-      return <RectangleIcon color={color} />
+      return <RectangleIcon data-testid={`svg-${shape}`} $color={color} />
     case "sphere":
-      return <SphereIcon color={color} />
+      return <SphereIcon data-testid={`svg-${shape}`} $color={color} />
     case "square":
-      return <SquareIcon color={color} />
+      return <SquareIcon data-testid={`svg-${shape}`} $color={color} />
     case "tetrahedron":
-      return <TetrahedronIcon color={color} />
+      return <TetrahedronIcon data-testid={`svg-${shape}`} $color={color} />
     case "triangle":
-      return <TriangleIcon color={color} />
+      return <TriangleIcon data-testid={`svg-${shape}`} $color={color} />
 
     default:
       break;
   }
 }
 
+interface IHomeProps {
+  data: {
+    id: string,
+    color: string,
+    shape:string
+  }[]
+}
 
-const Home = () => {
+const Home: FC<IHomeProps> = (props: IHomeProps) => {
+  const { data } = props;
+
   const [filteredData, setFilteredData] = useState<IColorProps[]>([])
   const [colors, setColors] = useState<string[]>([])
   const [shapes, setShapes] = useState<string[]>([])
@@ -283,7 +291,7 @@ var uniqueArray = Array.from(new Set(newShapes));
         </p>
         <div className="filter__color">
           {
-            shapes.map((shape: string) => <StyledButton shape={shape} selectedShapes={selectedShapes} className="shape" onClick={() => handleToggleShape(shape)}>{shape}</StyledButton>)
+            shapes.map((shape: string) => <StyledButton $shape={shape} selectedShapes={selectedShapes} key={shape} className="shape" onClick={() => handleToggleShape(shape)}>{shape}</StyledButton>)
           }
         </div>
       </div>
@@ -294,7 +302,7 @@ var uniqueArray = Array.from(new Set(newShapes));
         </p>
         <div className="filter__color">
           {
-            colors.map((color: string) => <StyledColorChooser color={color} selectedColors={selectedColors} key={color} onClick={() => handleToggleColor(color)} />)
+            colors.map((color: string) => <StyledColorChooser role="button" data-testid={color} $color={color} selectedColors={selectedColors} key={color} onClick={() => handleToggleColor(color)} />)
           }
         </div>
       </div>
@@ -307,7 +315,7 @@ var uniqueArray = Array.from(new Set(newShapes));
         {
           filteredData.map((item: IColorProps) => {
             const { id, color, shape } = item
-            return <div key={id}>{handleRenderShape(color, shape)}</div>
+            return <div key={id} >{handleRenderShape(color, shape)}</div>
           })
         }
       </div>
