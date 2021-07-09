@@ -81,7 +81,7 @@ border:none;
 }
 `;
 export const Login = (props: Props) => {
-  const {login, logout, user} = useContext(AuthContext)
+  const {login, user} = useContext(AuthContext)
   const history = useHistory();
   const [ profile, setProfile ] = useState({
     name: "",
