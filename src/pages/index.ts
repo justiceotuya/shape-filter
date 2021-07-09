@@ -1,3 +1,4 @@
+import { Login } from './auth/Login';
 import { Home } from './home'
 
-export { Home }
+export { Home,Login }

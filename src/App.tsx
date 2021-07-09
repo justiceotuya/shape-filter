@@ -1,14 +1,29 @@
 import React from 'react';
-import { Home } from './pages/home';
+import { Home, Login } from './pages';
 import {GlobalStyle} from './styles/index'
-import data from './data/data.json'
+import { AuthProvider } from './context/auth';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <>
+ <AuthProvider>
    <GlobalStyle/>
-      <Home data={data}/>
-  </>
+       <Router>
+        <Switch>
+
+          <Route
+            path="/login"
+            component={Login}
+            />
+          <Route
+            exact
+            path="/"
+            component={Home}
+          />
+        </Switch>
+       </Router>
+
+  </AuthProvider>
       );
 }
 
